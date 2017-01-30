@@ -3,13 +3,15 @@ package fr.duchess;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class FruitShop {
-
-	int total = 0;
+	private Map<Fruit, Integer> fruitMap;
 	
 	public FruitShop() {
-		
+		fruitMap = new HashMap<Fruit,Integer>();
 	}
 	
     public static void main (String args[]){
@@ -20,6 +22,7 @@ public class FruitShop {
             while (true){
                 final String myFruit = entree.readLine();
                 fruitShop.add(Fruit.getByName(myFruit));
+                System.out.println("> "+fruitShop.getTotal());
             }
         } catch (IOException e) {
             System.out.println("An error occurred: "+e.getMessage());
@@ -28,11 +31,17 @@ public class FruitShop {
     }
 
 	public void add(Fruit fruit) {
-		total+=fruit.getPrice();
-		
+		fruitMap.put(fruit, fruitMap.get(fruit)==null?1:fruitMap.get(fruit)+1);
 	}
 
 	public int getTotal() {
+		int total = 0;
+		for( Entry<Fruit, Integer> entry : fruitMap.entrySet()) {
+			total += entry.getValue()*entry.getKey().getPrice();
+			if(entry.getKey().name().equalsIgnoreCase("cerises")) {
+				total -= entry.getValue() / 2 * 20;
+			}
+		}
 		return total;
 	}
 

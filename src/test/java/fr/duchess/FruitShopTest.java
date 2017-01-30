@@ -30,5 +30,16 @@ public class FruitShopTest {
 		Assert.assertEquals(Fruit.CERISES, Fruit.getByName("cerises"));
 		Assert.assertEquals(Fruit.CERISES, Fruit.getByName("CerIses"));
 	}
+	
+	@Test
+	public void when_2_cherry_20_discount(){
+		fruitShop.add(Fruit.CERISES);
+		fruitShop.add(Fruit.CERISES);
+		
+		Assert.assertEquals(130, fruitShop.getTotal());
+		fruitShop.add(Fruit.CERISES);
+		Assert.assertEquals(205, fruitShop.getTotal());
+		
+	}
    
 }
