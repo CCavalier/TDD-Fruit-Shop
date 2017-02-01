@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -39,10 +40,18 @@ public class FruitShop {
 		for( Entry<Fruit, Integer> entry : fruitMap.entrySet()) {
 			total += entry.getValue()*entry.getKey().getPrice();
 			if(entry.getKey().name().equalsIgnoreCase("cerises")) {
-				total -= entry.getValue() / 2 * 20;
+				total -= entry.getValue() / 2 * 30;
+			}
+			if(entry.getKey().name().equalsIgnoreCase("bananes")) {
+				total -= entry.getValue() / 2 * Fruit.BANANES.getPrice() ;
 			}
 		}
 		return total;
+	}
+
+	public List readFruitLine(String string) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
