@@ -1,7 +1,7 @@
 # CodingDojoJava
 
-Based on Jean-Laurent de Morlhon coding dojo https://github.com/jeanlaurent/cashregister
+Based on Duchesses coding dojo https://github.com/DuchessFrance/CodingDojoJava
 
 We have to create a fruit shop where we can buy apples, banana and cherry.
 
-Slides are available here: http://fr.slideshare.net/duchessfr/conding-dojo-fruit-shop
+Slides are available here: https://github.com/CCavalier/TDD-Fruit-Shop/blob/master/TDD.pdf
