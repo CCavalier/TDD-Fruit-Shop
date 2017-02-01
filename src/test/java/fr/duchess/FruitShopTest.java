@@ -1,6 +1,8 @@
 package fr.duchess;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -36,13 +38,13 @@ public class FruitShopTest {
 	}
 	
 	@Test
-	public void when_2_cherry_30_discount(){
+	public void when_2_cherry_20_discount(){
 		fruitShop.add(Fruit.CERISES);
 		fruitShop.add(Fruit.CERISES);
 		
-		Assert.assertEquals(120, fruitShop.getTotal());
+		Assert.assertEquals(130, fruitShop.getTotal());
 		fruitShop.add(Fruit.CERISES);
-		Assert.assertEquals(195, fruitShop.getTotal());
+		Assert.assertEquals(205, fruitShop.getTotal());
 		
 	}
    
@@ -77,5 +79,30 @@ public class FruitShopTest {
 		listFruits = fruitShop.readFruitLine("Pommes, Cerises, Bananes");
 		Assert.assertNotNull(listFruits);
 		Assert.assertEquals(3, listFruits.size());
+	}
+	
+	@Test
+	public void should_add_100_when_apples() {
+		fruitShop.add(Fruit.APPLES);
+		
+		Assert.assertEquals(100, fruitShop.getTotal());
+	}
+	
+
+	@Test
+	public void should_add_100_when_mele() {
+		fruitShop.add(Fruit.MELE);
+		
+		Assert.assertEquals(100, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void computeDiscount(){
+		int valueCerises = fruitShop.computeDiscount(2, Fruit.CERISES);
+	
+		int valueBananes = fruitShop.computeDiscount(2, Fruit.BANANES);
+
+		Assert.assertEquals(20, valueCerises);
+		Assert.assertEquals(150, valueBananes);
 	}
 }

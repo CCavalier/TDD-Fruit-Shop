@@ -38,20 +38,26 @@ public class FruitShop {
 	public int getTotal() {
 		int total = 0;
 		for( Entry<Fruit, Integer> entry : fruitMap.entrySet()) {
-			total += entry.getValue()*entry.getKey().getPrice();
-			if(entry.getKey().name().equalsIgnoreCase("cerises")) {
-				total -= entry.getValue() / 2 * 30;
-			}
-			if(entry.getKey().name().equalsIgnoreCase("bananes")) {
-				total -= entry.getValue() / 2 * Fruit.BANANES.getPrice() ;
-			}
+			int nbFruit = entry.getValue();
+			Fruit currentFruit = entry.getKey();
+			
+			total += nbFruit * currentFruit.getPrice();
+			total -= computeDiscount(nbFruit, currentFruit);
 		}
 		return total;
+	}
+
+	protected int computeDiscount(int value, Fruit fruit) {
+		return value / 2 * fruit.getDiscount();
 	}
 
 	public List readFruitLine(String string) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	
 
 }
