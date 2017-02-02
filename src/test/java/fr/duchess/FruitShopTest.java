@@ -125,18 +125,10 @@ public class FruitShopTest {
 	}
 	
 	@Test
-	public void should_cost_200_when_4_mele() {
+	public void should_cost_300_when_4_mele() {
 		String csv = "apples, mele, apples, mele";
 		fruitShop.readFruitLine(csv);
 		
-		Assert.assertEquals(200, fruitShop.getTotal());
-	}
-	
-	@Test
-	public void should_dscount_200_when_5_fruits() {
-		String csv = "apples, cerises, bananes, mele, pommes";
-		fruitShop.readFruitLine(csv);
-		
-		Assert.assertEquals(325, fruitShop.getTotal());
+		Assert.assertEquals(300, fruitShop.getTotal());
 	}
 }
