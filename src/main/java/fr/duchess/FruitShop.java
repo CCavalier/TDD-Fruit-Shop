@@ -21,8 +21,7 @@ public class FruitShop {
 
         try {
             while (true){
-                final String myFruit = entree.readLine();
-                fruitShop.add(Fruit.getByName(myFruit));
+                fruitShop.readFruitLine(entree.readLine());
                 System.out.println("> "+fruitShop.getTotal());
             }
         } catch (IOException e) {
@@ -37,27 +36,35 @@ public class FruitShop {
 
 	public int getTotal() {
 		int total = 0;
+		int nbFuckingFruits = 0;
+		
 		for( Entry<Fruit, Integer> entry : fruitMap.entrySet()) {
 			int nbFruit = entry.getValue();
 			Fruit currentFruit = entry.getKey();
 			
 			total += nbFruit * currentFruit.getPrice();
 			total -= computeDiscount(nbFruit, currentFruit);
+			
+			 nbFuckingFruits += nbFruit;
 		}
+		
+		total -= (getFromFruitMapOrZero(Fruit.POMMES)+getFromFruitMapOrZero(Fruit.MELE)+getFromFruitMapOrZero(Fruit.APPLES))/4*100;
+		total -= nbFuckingFruits/5*200;
+				
 		return total;
 	}
 
 	protected int computeDiscount(int value, Fruit fruit) {
-		return value / 2 * fruit.getDiscount();
+		return value / fruit.getNumber() * fruit.getDiscount();
 	}
 
-	public List readFruitLine(String string) {
-		// TODO Auto-generated method stub
-		return null;
+	public void readFruitLine(String string) {
+		for(String fruitname : string.split(",")) {
+			this.add(Fruit.getByName(fruitname));
+		}
 	}
-
-
-
 	
-
+	private Integer getFromFruitMapOrZero(Fruit fruit) {
+		return fruitMap.get(fruit)==null?0:fruitMap.get(fruit);
+	}
 }

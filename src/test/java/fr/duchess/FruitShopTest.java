@@ -1,11 +1,6 @@
 package fr.duchess;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import junit.framework.Assert;
@@ -35,6 +30,7 @@ public class FruitShopTest {
 		Assert.assertEquals(Fruit.CERISES, Fruit.getByName("cerises"));
 		Assert.assertEquals(Fruit.CERISES, Fruit.getByName("CerIses"));
 		Assert.assertEquals(Fruit.BANANES, Fruit.getByName("BANANES"));
+		Assert.assertEquals(Fruit.POMMES, Fruit.getByName(" pommes"));
 	}
 	
 	@Test
@@ -70,16 +66,6 @@ public class FruitShopTest {
 		
 		Assert.assertEquals(300, fruitShop.getTotal());
 	}
-
-	@Ignore("reported")
-	@Test
-	public void readFruit(){
-		
-		List listFruits = null;
-		listFruits = fruitShop.readFruitLine("Pommes, Cerises, Bananes");
-		Assert.assertNotNull(listFruits);
-		Assert.assertEquals(3, listFruits.size());
-	}
 	
 	@Test
 	public void should_add_100_when_apples() {
@@ -88,7 +74,6 @@ public class FruitShopTest {
 		Assert.assertEquals(100, fruitShop.getTotal());
 	}
 	
-
 	@Test
 	public void should_add_100_when_mele() {
 		fruitShop.add(Fruit.MELE);
@@ -104,5 +89,54 @@ public class FruitShopTest {
 
 		Assert.assertEquals(20, valueCerises);
 		Assert.assertEquals(150, valueBananes);
+	}
+	
+	@Test
+	public void computeDiscount_et_total() {
+		int expected = Fruit.CERISES.getPrice()*2-Fruit.CERISES.getDiscount();
+		fruitShop.add(Fruit.CERISES);
+		fruitShop.add(Fruit.CERISES);
+		
+		Assert.assertEquals(expected, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void should_add_200_when_3_apples() {
+		fruitShop.add(Fruit.APPLES);
+		fruitShop.add(Fruit.APPLES);
+		fruitShop.add(Fruit.APPLES);
+		
+		Assert.assertEquals(200, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void should_add_100_when_2_mele() {
+		fruitShop.add(Fruit.MELE);
+		fruitShop.add(Fruit.MELE);
+		
+		Assert.assertEquals(100, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void should_create_list_from_csv(){
+		String csv = "apples, apples, cerises";
+		fruitShop.readFruitLine(csv);
+		Assert.assertEquals(275, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void should_cost_200_when_4_mele() {
+		String csv = "apples, mele, apples, mele";
+		fruitShop.readFruitLine(csv);
+		
+		Assert.assertEquals(200, fruitShop.getTotal());
+	}
+	
+	@Test
+	public void should_dscount_200_when_5_fruits() {
+		String csv = "apples, cerises, bananes, mele, pommes";
+		fruitShop.readFruitLine(csv);
+		
+		Assert.assertEquals(325, fruitShop.getTotal());
 	}
 }
